@@ -1,0 +1,87 @@
+{% extends "baseFrontOffice.html.twig" %}
+
+
+
+
+
+
+            {% block body %}
+
+
+      {% set userId = app.session.get('user_id') %}
+{% set userName = app.session.get('user_name') %}
+{% set userEmail = app.session.get('user_email') %}
+{% set userPhone = app.session.get('user_phonenumber') %}
+{% set userAddress = app.session.get('user_address') %}
+
+
+
+
+
+
+              <style>
+    .profile-image {
+        max-width: 150px; /* Définissez la taille maximale souhaitée */
+        height: auto; /* Pour maintenir les proportions de l'image */
+    }
+</style> 
+
+
+
+
+
+          
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card" style="width: 600px;">
+                <div class="card-body">
+                <div class="card mb-3" style="max-width: 540px;">
+                 <div class="row g-0">
+                   <div class="col-md-4">
+                    <div class="user">
+                        <img src="{{ asset(app.session.get('image')) }}" alt="User Image" class="profile-image">
+                    </div>
+
+            
+
+   </div>
+                   
+   <div class="col-md-8">
+      <div class="card-body">
+                    <div class="profile-details">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"> 
+                            <label  class="form-label" >Name: </label>
+                            <h6 class="font-weight-bold">{{ user.email }}</h6></li>
+                            <li class="list-group-item">
+
+                            <label  class="form-label" >Email: </label>
+                            <p>{{ user.email }}</p> 
+                            </li>
+                            
+                            <li class="list-group-item  mr-5">
+                            <label  class="form-label" >Phone_number: </label>
+                            <p>{{ user.telephone }}</p>
+                            </li>
+
+                            <li class="list-group-item">
+                            <label  class="form-label" >Address: </label>
+                            <p>{{ user.adresse }}</p>
+                            </li>
+                        </ul>
+
+                        <form action="{{ path('app_edit', {'id': user.id}) }}" method="GET">
+                            <button type="submit" class="btn btn-primary">edit </button>
+                        </form>
+                    </div>
+
+        </div>
+    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+            {% endblock %}

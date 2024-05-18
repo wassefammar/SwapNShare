@@ -1,0 +1,177 @@
+{% extends 'baseFrontOffice.html.twig' %}
+
+{% block title %}AI Product Assistant{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1 class="mb-4">AI Product Assistant</h1>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Product Description</h5>
+                    <form id="product-description-form">
+                        <div class="mb-3">
+                            <label for="product-description-input" class="form-label">Enter Product Description:</label>
+                            <textarea class="form-control" id="product-description-input" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Generate Description</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Tagging/Categorization</h5>
+                    <form id="tagging-form">
+                        <div class="mb-3">
+                            <label for="tagging-input" class="form-label">Enter Tags or Categories:</label>
+                            <input type="text" class="form-control" id="tagging-input">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Generate Tags</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Price Evaluation</h5>
+                    <form id="price-evaluation-form">
+                        <div class="mb-3">
+                            <label for="price-evaluation-input" class="form-label">Enter Product Price:</label>
+                            <input type="number" class="form-control" id="price-evaluation-input">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Evaluate Price</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Comparison</h5>
+                    <form id="comparison-form">
+                        <div class="mb-3">
+                            <label for="comparison-input-1" class="form-label">Enter Product 1:</label>
+                            <input type="text" class="form-control" id="comparison-input-1">
+                        </div>
+                        <div class="mb-3">
+                            <label for="comparison-input-2" class="form-label">Enter Product 2:</label>
+                            <input type="text" class="form-control" id="comparison-input-2">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Compare</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Output</h5>
+                    <div id="output" class="output"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br><br><br><br><br>
+{% endblock %}
+
+{% block custom_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const productDescriptionForm = document.getElementById('product-description-form');
+        const taggingForm = document.getElementById('tagging-form');
+        const priceEvaluationForm = document.getElementById('price-evaluation-form');
+        const comparisonForm = document.getElementById('comparison-form');
+        const outputDiv = document.getElementById('output');
+
+        productDescriptionForm.addEventListener('submit', async function (event) {
+            event.preventDefault();
+            const descriptionInput = document.getElementById('product-description-input').value;
+            console.log(descriptionInput);
+            try {
+                
+                const response = await fetch('/api/generate-product-description', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ description: descriptionInput })
+                });
+                const data = await response.json();
+                console.log(data)
+                outputDiv.innerHTML = data.description;
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        });
+        taggingForm.addEventListener('submit', async function (event) {
+            event.preventDefault();
+            const tagsInput = document.getElementById('tagging-input').value;
+            try {
+                const response = await fetch('/api/generate-tags', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ tags: tagsInput })
+                });
+                const data = await response.json();
+                outputDiv.innerHTML = data.tags;
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        });
+
+        priceEvaluationForm.addEventListener('submit', async function (event) {
+            event.preventDefault();
+            const priceInput = document.getElementById('price-evaluation-input').value;
+            try {
+                const response = await fetch('/api/generate-price', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ price: priceInput })
+                });
+                const data = await response.json();
+                outputDiv.innerHTML = data.price;
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        });
+
+        comparisonForm.addEventListener('submit', async function (event) {
+            event.preventDefault();
+            const comparisonInput1 = document.getElementById('comparison-input-1').value;
+            const comparisonInput2 = document.getElementById('comparison-input-2').value;
+            try {
+                const response = await fetch('/api/generate-comparison', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ product1: comparisonInput1, product2: comparisonInput2 })
+                });
+                const data = await response.json();
+                outputDiv.innerHTML = data.comparison;
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        });
+    });
+</script>
+{% endblock %}
+

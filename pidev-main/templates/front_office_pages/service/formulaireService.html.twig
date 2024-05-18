@@ -1,0 +1,48 @@
+{% extends "baseFrontOffice.html.twig" %}
+{% block title %}Services{% endblock %}
+{% block subheader %}
+			<div class="hero">
+				<div class="container">
+					<div class="row justify-content-between">
+						<div class="col-lg-5">
+							<div class="intro-excerpt">
+								<h1>Update service</h1>
+							</div>
+						</div>
+						<div class="col-lg-7">
+							
+						</div>
+					</div>
+				</div>
+			</div>
+{% endblock %}
+
+{% block body %}
+	<div align="center" style="max-width: 50%; margin: 0 auto;">
+	<h2> Update Service</h2>
+
+
+			{{ form_start(formService,{'attr': {'novalidate': 'novalidate'}}) }}
+			{{ form_row(formService.titreService) }}
+			{{ form_row(formService.descriptionService) }}
+			{{ form_row(formService.photo , {
+					'attr': {
+						'class': 'form-control',
+						'style': 'color: green; max-width: 250px;'
+						},
+				'label': 'Image'}) }}
+			{{ form_row(formService.ville) }}
+			{{ form_row(formService.choixEchange) }}
+{# 			<div style="display: none;">
+			{{ form_row(formService.valid) }}
+			</div>  #}
+			{{ form_row(formService.categorie) }}
+			{# Affichage des erreurs #}
+
+				{{ form_errors(formService) }}
+
+		{{ form_end(formService) }}
+
+	</div>
+
+{% endblock %}

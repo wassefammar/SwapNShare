@@ -1,0 +1,61 @@
+{% extends "baseBackOffice.html.twig" %}
+{% block title %}Réclamations{% endblock %}
+{% block body %}
+
+
+            <div class="details">
+                <div class="recentOrders">
+                    <div class="cardHeader">
+                        <h2>Complaints List</h2>
+                    </div>
+
+                    <table >
+                        <thead>
+                            <tr>
+                                <td>First Name</td>
+                                <td>Last Name</td>
+                                <td>Email</td>
+                                <td>Phone Number</td>
+                                <td>Reason of Complaint</td>
+                                <td>Description</td>
+                                <td>Actions</td>
+                                <td>Date</td>
+                                 
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                        {% for reclmation in reclamations %}
+                            <tr>
+                                <td>{{ reclmation.utilisateur.nom }}</td>
+                                <td>{{ reclmation.utilisateur.prenom }}</td>
+                                <td>{{ reclmation.utilisateur.email }}</td>
+                                <td>{{ reclmation.utilisateur.telephone }}</td>
+                                <td>{{ reclmation.titreR }}</td>
+                                <td>{{ reclmation.descriptionR }}</td>
+                                 <td>
+                <div style="display: inline-block;">
+                  <a href="{{ path('respond', {'id': reclmation.id}) }}">
+                    <i class="fa-regular fa-pen-to-square"></i>
+                  </a>
+                </div>
+                <div style="display: inline-block;margin-left: 10px;">
+                  <form method="post" action="{{ path('suppression', {id: reclmation.id}) }}" onclick="return confirm('Are you sure you want to delete this item?');">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ reclmation.id) }}">
+                    <button type="submit" class="btn btn-danger" style="cursor: pointer;"><i class="fa-regular fa-circle-xmark" style="color: red;"></i></button>
+                   </form>
+                </div>
+
+                 </a> 
+
+            </td> 
+             <td>{{ reclmation.date ? reclmation.date|date('F d, Y') : ''  }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+
+            </div>
+{% endblock %}

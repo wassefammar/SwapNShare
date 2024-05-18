@@ -1,0 +1,95 @@
+{% extends "baseBackOffice.html.twig" %}
+{% block body %}
+    <div class="container">
+        <div class="row justify-content-center form-container">
+            <div class="col-lg-6 col-md-8 border rounded p-4">
+                <h2 class="text-center mb-4">Registration Form</h2>
+                {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+
+                <div class="mb-3">
+                    {{ form_label(form.nom, 'Last Name') }}
+                    {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.nom) }}
+                </div>
+
+                <div class="mb-3">
+                    {{ form_label(form.prenom, 'First Name') }}
+                    {{ form_widget(form.prenom, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.prenom) }}
+                </div>
+
+                <div class="mb-3">
+                    {{ form_label(form.adresse, 'Address') }}
+                    {{ form_widget(form.adresse, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.adresse) }}
+                </div>
+
+                <div class="mb-3">
+                    {{ form_label(form.telephone, 'Phone Number') }}
+                    {{ form_widget(form.telephone, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.telephone) }}
+                </div>
+
+                <div class="mb-3">
+                    {{ form_label(form.email, 'Email') }}
+                    {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.email) }}
+                </div>
+
+                <div class="mb-3">
+                    {{ form_widget(form.mot_de_passe, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.mot_de_passe) }}
+                </div>
+
+
+
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+    <style>
+        .form-container {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 5px;
+        }
+
+        .form-label {
+            font-weight: bold;
+        }
+
+        /* Input fields */
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+        }
+
+        .form-control:focus {
+            border-color: #66afe9;
+            outline: 0;
+            box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+        }
+          
+         /* Submit button */
+        .btn-primary {
+            background-color: #3b5d50;
+            border-color: #3b5d50;
+            color: #fff;
+            padding: 10px 20px; /* Espacement intérieur du bouton */
+            font-size: 16px;
+            border-radius: 5px; 
+            margin-top: 15px;
+            margin-left:320px ; /* Centrer horizontalement */
+            width: 250px;
+          
+}
+        
+
+
+
+
+    </style>
+{% endblock %}

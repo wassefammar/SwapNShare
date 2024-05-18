@@ -1,0 +1,48 @@
+{% extends "baseBackOffice.html.twig" %}
+
+{% block title %} Service Exchange List Index {% endblock %}
+
+{% block body %}
+<br>
+    <div class="details">
+        <div class="recentOrders">
+            <div class="cardHeader">
+              <h2>Service Exchange Index</h2>
+            </div>
+            <table>
+                <thead>
+                  <tr>
+                      <th>Id</th>
+                      <th>Date Of Exchange</th>
+                      <th>Valid</th>
+                      <th>Actions</th>
+                      <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for echange_service in echange_services %}
+                    <tr>
+                        <td>{{ echange_service.id }}</td>
+                        <td>{{ echange_service.produitIn.utilisateur.id }}</td>
+                        <td>{{ echange_service.dateEchange ? echange_service.dateEchange|date('Y-m-d H:i:s') : '' }}</td>
+                        <td>{{ echange_service.valide ? 'Yes' : 'No' }}</td>
+                        <td>
+                            <a href="{{ path('app_echange_service_edit', {'id': echange_service.id}) }}" class="status pending" >edit</a>
+                        </td>
+                        <td>   
+                            <form method="post" action="{{ path('app_echange_service_delete', {'id': echange_service.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ echange_service.id) }}">
+                                <button class="status return">Delete</button>
+                            </form>  
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="4">no records found</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+       </div>
+    </div>
+{% endblock %}

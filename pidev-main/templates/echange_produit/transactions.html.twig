@@ -1,0 +1,53 @@
+{% extends "baseFrontOffice.html.twig" %}
+{% block title %}Transactions{% endblock %}
+{% block subheader %}
+    <div class="hero">
+        <div class="container">
+            <div class="row justify-content-between">
+                <div class="col-lg-5">
+                    <div class="intro-excerpt">
+                        <h1>Transactions</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block body %}
+    <h1>Transaction table</h1>
+    <div>
+        <table class="table table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>Exchanges</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for transaction in transactions %}
+                    
+                    <tr>
+                    
+                        <td>{{ transaction.produitOut.getTitreProduit() }}</td>
+                        <td>{{ transaction.dateEchange ? transaction.dateEchange|date('Y-m-d H:i:s') : '' }}</td>
+                        {% if transaction.produitIn.getUtilisateur() == app.user %}
+                            <td>
+                                <a href="{{ path('app_echange_produit_transactions_validate', {'id': transaction.id}) }}">Yes</a> 
+                                <a href="{{ path('app_echange_produit_transactions_validate', {'id': transaction.id}) }}">No</a>
+                            </td>
+                        {% else %}
+                            <td>Pending</td>
+                        {% endif %}
+                        <td>   
+                            <form method="post" action="{{ path('app_echange_produit_delete', {'id': transaction.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ transaction.id) }}">
+                                <button class="btn btn-danger">Delete</button>
+                            </form>  
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>       
+        </table>
+    </div>
+    <a href="{{ path('index') }}" class="btn btn-success">Back Home</a>
+
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends "baseBackOffice.html.twig" %}
+
+{% block title %}Services{% endblock %}
+{% block body %}
+<div class="product-card-margin">
+<div class="product-card">
+  <img src="{{ asset('uploads/services/' ~ service.photo) }}" alt="Product Image" class="rounded-img">
+  <h3>{{ service.titreService }}</h3>
+  <p>{{ service.descriptionService }}</p>
+  <div class="user-info">
+    <img src="{{ asset('uploads/services/' ~ service.photo) }}" alt="User Image" class="user-img">
+    <span>By:{{ ' ' ~ service.utilisateur.nom ~ ' ' ~ service.utilisateur.prenom }}</span>
+  </div>
+  <div class="buttons">
+    {% if service.valid == true %}
+        <a  href="{{ path('app_admin_services') }}"><button>Return</button></a>
+        <a  href="{{ path('suppression_service', {id: service.id}) }}"><button style="background-color: red; color: white;">Delete</button></a>
+    {% else %}
+        <a  href="{{ path('app_admin_services') }}"><button>Return</button></a>
+        <a  href="{{ path('valider_service',{id: service.id}) }}"><button style="background-color: green; color: white;">Validate</button></a>
+        <a  href="{{ path('suppression_service', {id: service.id}) }}"><button style="background-color: red; color: white;">Delete</button></a>
+    {% endif %}
+
+  </div>
+</div>
+
+{% endblock %}

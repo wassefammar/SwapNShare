@@ -1,0 +1,25 @@
+{% extends 'baseBackOffice.html.twig' %}
+{% block title %}New Categorie{% endblock %}
+
+{% block body %}
+    <div class="details">
+        <h2>Edit Category</h2><br><br>
+        <div class="recentOrders">
+            {{form_start(form, {'attr': {'class': 'form-control', 'novalidate': 'novalidate'}}) }}
+                <div>
+                {{ form_label(form.nomCategorie, "Change The Category Name", {'label_attr': {'class': 'form-label'}}) }}<br><br>
+                {{ form_widget(form.nomCategorie, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.nomCategorie, {'attr': {'class': 'form-error'}}) }}
+                </div>
+                <div style="background-color: #f2f2f2; padding: 10px;"><p style="color : #3b5d50 ;">choose type</p>
+                    {{ form_widget(form.type , {'attr': {'style': 'width: 200px; padding: 5px; border: 1px solid #ccc; border-radius: 5px;'}})}}
+                    {{ form_errors(form.type,{'attr': {'class': 'form-error'}}) }}
+                </div>
+                {{ form_widget(form.save, {'attr': {'class': 'btn-submit'}}) }}
+            {{form_end(form)}}
+            <div class="cardHeader">        
+                <a href="{{ path('app_categorie_index') }}" class="btn" >back to list</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

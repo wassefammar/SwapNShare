@@ -1,0 +1,59 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="author" content="Untree.co">
+  <link rel="shortcut icon" href="{{asset('frontOffice/images/logo-no-background.png')}}">
+
+  <meta name="description" content="" />
+  <meta name="keywords" content="bootstrap, bootstrap4" />
+
+		<!-- Bootstrap CSS -->
+        {% block CSS %}
+		<link href="{{asset('frontOffice/css/bootstrap.min.css')}}" rel="stylesheet">
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+		<link href="{{asset('frontOffice/css/tiny-slider.css')}}" rel="stylesheet">
+		<link href="{{asset('frontOffice/css/style.css')}}" rel="stylesheet">
+        {% endblock %}
+		<title>{% block title %}Home{% endblock %}</title>
+	</head>
+
+	<body>
+
+		<!-- Start Header/Navigation -->
+		<nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
+
+			<div class="container">
+			    <p class="navbar-brand">  Registration</p>
+				<p class="navbar-brand" >SwapNshare<span>.</span></p>
+				
+               
+			</div>
+				
+		</nav>
+		
+		<!-- End Header/Navigation -->
+  
+		<!-- Start Hero Section -->
+        {% block subheader %}
+
+        {% endblock %}
+		<!-- End Hero Section -->
+
+        {% block body %}
+		
+       {% endblock %}
+		<!-- Start Footer Section -->
+
+		<!-- End Footer Section -->	
+
+        {% block JS%}
+		<script src="{{asset('frontOffice/js/bootstrap.bundle.min.js')}}"></script>
+		<script src="{{asset('frontOffice/js/tiny-slider.js')}}"></script>
+		<script src="{{asset('frontOffice/js/custom.js')}}"></script>
+        {% endblock %}
+	</body>
+
+</html>

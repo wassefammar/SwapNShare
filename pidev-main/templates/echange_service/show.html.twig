@@ -1,0 +1,30 @@
+{% extends "baseFrontOffice.html.twig" %}
+
+{% block title %} Show Exchanged Service {% endblock %}
+
+
+{% block body %}
+    <h1>EchangeService</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ echange_service.id }}</td>
+            </tr>
+            <tr>
+                <th>Date_echange</th>
+                <td>{{ echange_service.dateEchange ? echange_service.dateEchange|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Valide</th>
+                <td>{{ echange_service.valide ? 'Yes' : 'No' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_echange_service_index') }}">back to list</a>
+
+    <a href="{{ path('app_echange_service_edit', {'id': echange_service.id}) }}">edit</a>
+
+{% endblock %}

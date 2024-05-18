@@ -1,0 +1,35 @@
+{% extends "baseFrontOffice.html.twig" %}
+{% block title %}Services{% endblock %}
+{% block subheader %}
+			<div class="hero">
+				<div class="container">
+					<div class="row justify-content-between">
+						<div class="col-lg-5">
+							<div class="intro-excerpt">
+								<h1>Ajout de Commentaire</h1>
+							</div>
+						</div>
+						<div class="col-lg-7">
+							
+						</div>
+					</div>
+				</div>
+			</div>
+{% endblock %}
+
+{% block body %}
+	<div align="center" style="max-width: 50%; margin: 0 auto;" class="form-commentaire">
+	<h2> Ajouter Commentaire</h2>
+
+{{ form_start(formCommentaire,{'attr': {'novalidate': 'novalidate'}}) }}
+    {{ form_row(formCommentaire.description, {'attr': {'rows': 5, 'cols': 10}})  }}
+	{{ form_row(formCommentaire.utilisateur) }}
+    {# Affichage des erreurs #}
+    <div style="color: red;">
+        {{ form_errors(formCommentaire) }}
+    </div>
+{{ form_end(formCommentaire) }}
+
+	</div>
+
+{% endblock %}

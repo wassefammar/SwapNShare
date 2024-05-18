@@ -1,0 +1,263 @@
+{% extends "baseFrontOffice.html.twig" %}
+{% block title %}Services{% endblock %}
+
+{% block navbar %}
+
+		<!-- Start Header/Navigation -->
+		<nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
+
+			<div class="container">
+				<a class="navbar-brand" href="{{path('index')}}">SwapNshare<span>.</span></a>
+
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni" aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+
+				<div class="collapse navbar-collapse" id="navbarsFurni">
+					<ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+						<li>
+							<a class="nav-link" href="{{path('index')}}">Home</a>
+						</li>
+						<li>
+							<a class="nav-link" href="{{path('produits')}}">Products</a>
+						</li>
+						<li class="nav-item active">
+							<a class="nav-link" href="{{path('services')}}">Services</a>
+						</li>
+						<li>
+							<a class="nav-link" href="{{path('contact')}}">Contact Us</a>
+						</li>
+					</ul>
+
+					<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
+						<li><a class="nav-link" href="#"><img src="{{asset('frontOffice/images/user.svg')}}"></a></li>
+						<li><a class="nav-link" href="{{path('panier')}}"><img src="{{asset('frontOffice/images/cart.svg')}}"></a></li>
+					</ul>
+				</div>
+			</div>
+				
+		</nav>
+{% endblock %}
+
+
+{% block subheader %}
+			<div class="hero">
+				<div class="container">
+					<div class="row justify-content-between">
+						<div class="col-lg-5">
+							<div class="intro-excerpt">
+								<h1>Services</h1>
+							</div>
+						</div>
+						<div class="col-lg-7">
+							
+						</div>
+					</div>
+				</div>
+			</div>
+{% endblock %}
+
+{% block body %}
+		<div class="untree_co-section product-section before-footer-section">
+
+		    <div class="container">
+{# 					<div class="add-button">
+						<a href="{{ path('add_service') }}" class="green-button"> <i class="fa-solid fa-plus"></i> Add a service</a>
+					</div> 
+					<div class="col-lg-3 col-md-4">
+						<div class="search">
+						<label>
+							<input type="text" placeholder="Search here"  id="searchInput"  onchange="Search(this)">
+							<ion-icon name="search-outline"></ion-icon>
+						</label>
+					    </div>
+					</div> #}
+
+					<div class="wrapper">  
+						<div class="add-button">
+							<a href="{{ path('add_service') }}" class="green-button"> <i class="fa-solid fa-plus"></i> Add a service</a>
+						</div>
+						<div class="col-lg-3 col-md-4">
+							<div class="search">
+							<label>
+								<input type="text" placeholder="Search here"  id="searchInput"  onchange="Search(this)">
+								<ion-icon name="search-outline"></ion-icon>
+							</label>
+							</div>
+						</div>
+						
+						<button type="button" class="filter-button dropdown-toggle" data-bs-toggle="dropdown" style="height: 50px;" aria-expanded="false">
+							Filter by category
+						</button>
+					
+
+						<div class="dropdown-menu filter-dropdown">
+							<div class="filter-category">
+								<ul>
+								{% for category in categories %}
+								<li>
+									<a href="{{ path('FiltredServices', {id: category.id }) }}">{{category.nomCategorie}}</a>
+								</li>
+								{% endfor %}
+
+								</ul>
+							</div>
+						</div>
+					</div>
+
+
+
+
+
+ 
+{% if pagination|length > 0 %}
+				
+		      	<div class="row">
+				
+				 {% for article in pagination %}
+
+		      		<!-- Start Column 1 -->
+					<div class="col-12 col-md-4 col-lg-3 mb-5">
+						<a class="product-item" href="{{ path('service', {id : article.id}) }}">
+							<img src= "{{ asset( 'uploads/services/' ~ article.photo)  }} "class="img-fluid product-thumbnail" style="width: 512px; height: 212px;" >
+							<div class="service-category">
+							    <i class="fa-solid fa-list-ul icon-service"></i>
+								<p class="service-text">{{ article.categorie.nomCategorie }}</p>
+							</div>
+							<h2 class="product-title">{{ article.titreService}}</h2>
+							<h3 class="product-title">{{ article.utilisateur.nom ~ ' ' ~ article.utilisateur.prenom }}</h3>
+
+
+							<span class="icon-cross" href="">
+								<img src="{{asset('frontOffice/images/exchange-svgrepo-com.svg')}}" class="img-fluid">
+							</span>
+						</a>
+					</div> 
+					<!-- End Column 1 -->
+				 {% endfor %}
+				 <div class="n">
+				    {{ knp_pagination_render(pagination) }}
+				 </div>
+
+
+                    {% else %}
+                    <h2 style="align: center">No Services to show</2>
+
+                    {% endif %}
+		      	</div>
+		    </div>
+		</div>
+<script>
+    function Search(checkbox) {
+        const sortBy = checkbox.value;
+        const currentUrl = new URL(window.location.href);
+        currentUrl.searchParams.set('searchValue', sortBy);
+        window.location.href = currentUrl.toString();
+        
+    }
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+		<script>
+			$(document).ready( function() {
+				$('#searchInput').autocomplete({
+					source: '/autocomplete', // Assuming the source is a URL
+					minLength: 1
+				}).data('ui-autocomplete')._renderItem = function(ul, item) {
+					// Customize the rendering of each item
+					return $('<li>')
+						.append('<div class="custom-suggestion">' + item.label + '</div>')
+						.data('ui-autocomplete-item', item)
+						.appendTo(ul);
+				};
+
+				// Delegate the click event to the suggestions
+				$(document).on('click', '.ui-autocomplete li', function() {
+					var item = $(this).data('ui-autocomplete-item');
+					if (item && item.id) {
+						// Include additional path details (e.g., photo) in the URL
+						window.location.href = '/service/' + encodeURIComponent(item.id) + '/' + encodeURIComponent(item.photo);
+					}
+				});
+			}); 
+       </script>
+<style>
+.wrapper {
+  display: flex; /* Make the wrapper a flex container */
+  justify-content: space-between; /* Align items at opposite ends */
+}
+
+.add-button,
+.col-lg-3.col-md-4 {
+  /* Adjust styling for individual divs if needed */
+}
+
+.filter-button {
+  background-color: #3b5d50; /* Adjust background color */
+  color: white; /* Adjust text color */
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px; /* Adjust border radius */
+  cursor: pointer;
+  display: flex;
+  align-items: center; /* Align text and icon vertically */
+  transition: background-color 0.2s ease-in-out; /* Add a smooth hover effect */
+}
+
+.filter-button:hover {
+  background-color: #3b5d50; /* Adjust hover background color */
+}
+
+
+.dropdown-menu {
+  background-color: white; /* Adjust background color */
+  border: 1px solid #ccc; /* Adjust border color */
+  border-radius: 5px; /* Adjust border radius */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+  padding: 10px;
+  min-width: 150px; /* Adjust minimum width */
+  position: absolute; /* Position relative to button (adjust if needed) */
+  z-index: 1; /* Ensure dropdown appears above other elements */
+  display: none; /* Initially hidden */
+}
+
+.dropdown-menu.show { /* Add class for open state */
+  display: block;
+}
+
+.filter-category {
+  padding: 5px 0; /* Add some padding for separation */
+  border-bottom: 1px solid #ddd; /* Add a subtle divider line */
+  margin-bottom: 5px; /* Add some bottom margin */
+}
+
+.filter-category h6 {
+  font-weight: bold;
+  margin-bottom: 5px; /* Adjust margin for spacing */
+}
+
+.filter-category ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.filter-category li {
+  padding: 5px 0; /* Adjust padding for spacing */
+}
+
+.filter-category li a {
+  text-decoration: none;
+  color: #333;
+  display: block; /* Make entire list item clickable */
+}
+
+.filter-category li a:hover {
+  background-color: #f1f1f1; /* Add hover background color */
+}
+
+</style>
+
+
+
+    {% endblock %}

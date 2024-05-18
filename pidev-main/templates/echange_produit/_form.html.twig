@@ -1,0 +1,71 @@
+
+{% block body %}
+<style>
+    .card {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    }
+
+    .container {
+        margin: 50px auto; 
+        max-width: 1600px;
+    }
+    .form-control {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 8px 12px;
+    font-size: 16px;
+    width: 100%; 
+    }
+    .btn-danger {
+    background-color: #dc3545; /* Red background color */
+    color: #fff; /* White text color */
+    border: none; /* Remove button border */
+    padding: 8px 16px; /* Adjust padding as needed */
+    border-radius: 4px; /* Add border radius for rounded corners */
+    cursor: pointer; /* Add pointer cursor on hover */
+    }
+
+    .btn-danger:hover {
+        background-color: #c82333; /* Darker red background color on hover */
+    }
+
+</style>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="card-title">Create New Product Exchage</h1>
+                    {{ form_start(form,{'attr': {'novalidate': 'novalidate'}}) }}
+                        <div class="mb-3">
+                            {{ form_label(form.date_echange, 'Date of Exchange') }}
+                            {{ form_widget(form.date_echange, {'attr': {'class': 'form-control'}}) }}
+                            <div style="color: red !important;">{{ form_errors(form.date_echange) }}</div>
+                        </div>
+                        <br><br><br>
+                        <div class="mb-3">
+                            {{ form_label(form.produitIn, 'produit in ') }}
+                            {{ form_widget(form.produitIn, {'attr': {'class': 'form-control'}}) }}
+                            <div style="color: red !important;">{{ form_errors(form.produitIn) }}</div>
+                        </div>
+                        <div class="mb-3">
+                            {{ form_label(form.produitOut, 'produit out') }}
+                            {{ form_widget(form.produitOut, {'attr': {'class': 'form-control'}}) }}
+                            <div style="color: red !important;">{{ form_errors(form.produitOut) }}</div>
+                        </div>          
+                        <button type="submit" class="btn btn-primary">Save</button><br><br><br>
+                        <br> <br> 
+                        <a href="{{ path('app_echange_produit_index')}}" class="btn btn-secondary">back to list</a>
+                    
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

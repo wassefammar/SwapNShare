@@ -1,0 +1,59 @@
+{% extends "baseFrontOffice.html.twig" %}
+
+{% block title %} Transaction Details {% endblock %}
+
+{% block body %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow">
+        <div class="card-header bg-success text-white">
+          <h4 class="m-0">Transaction Details</h4>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+              <p class="font-weight-bold">Date: {{ echangeProduit.getDateEchange()  | date("Y-m-d H:i:s") }}</p>
+              <hr>
+              <h5>Exchanged Product</h5>
+              <ul class="list-unstyled">
+                <li><strong>Titre Service:</strong> {{ echangeProduit.produitIn.titreProduit }}</li>
+                <li><strong>Photo:</strong> <img src="{{ asset('/uploads/produits/' ~ echangeProduit.produitIn.photo ) }}" alt="Service In Photo" class="img-fluid"></li>
+                <li><strong>Ville:</strong> {{ echangeProduit.produitIn.ville }}</li>
+                <li><strong>Categorie:</strong> {{  echangeProduit.produitIn.categorie.getNomCategorie()}}</li>
+              </ul>
+            </div>
+            <div class="col-md-6">
+              <h5>Your Product</h5>
+              <ul class="list-unstyled">
+                <li><strong>Titre Service:</strong> {{ echangeProduit.produitOut.titreProduit }}</li>
+                <li><strong>Photo:</strong> <img src="{{ asset('/uploads/services/' ~ echangeProduit.produitOut.photo) }}" alt="Service Out Photo" class="img-fluid"></li>
+                <li><strong>Ville:</strong> {{ echangeProduit.produitOut.ville }}</li>
+                <li><strong>Categorie:</strong> {{ echangeProduit.produitOut.categorie.getNomCategorie()  }}</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <div class="row">
+            <div class="col-md-6">
+              <!-- Electronic Signature Box -->
+              <div class="form-group">
+                <label for="electronicSignature">Electronic Signature:</label>
+                <input type="text" class="form-control" id="electronicSignature">
+              </div>
+            </div>
+            <div class="col-md-6 text-right">
+            <br>
+              <!-- Download Button -->
+              <a href="{{ path('generate_pdf', {'id': echangeProduit.id}) }}" class="btn btn-primary">Download PDF</a>
+              <a href="{{ path('app_takeScreenshot', {'id': echangeProduit.id}) }}" class="btn btn-primary">ScreenShot Image</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<br><br><br>
+{% endblock %}

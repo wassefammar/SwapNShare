@@ -1,0 +1,59 @@
+{% extends 'ForgetPassword.html.twig' %}
+
+{% block title %}Forgot Password !{% endblock %}
+
+{% block body %}
+
+
+
+<div class="card border-success mb-3" style="width: 500px;   height: 450px;    margin-top: 20px;  margin-left: 400px;">
+    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+        <div class="row">
+            <h5 class=" card-title " style="  font-size: 30px;">Enter your email and your new password</h5>
+            <h6>{{ error }}</h6>
+            <div class="card-body"  style="margin-left: 40px;">
+
+          
+                {{ form_label(form.email, 'Email') }}
+                <div class="col-sm-10">
+                {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+
+                </div>
+
+                {{ form_errors(form.email) }}
+       
+    
+                {{ form_label(form.newPassword, 'Passworde') }}
+                 <div class="col-sm-10">
+                {{ form_widget(form.newPassword, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                {{ form_errors(form.newPassword) }}
+
+            </div>
+
+        </div>
+    {{ form_end(form) }}
+    <br>
+
+</div>
+
+
+ <style>  
+ 
+ .card {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2), 5px 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+
+
+
+
+</style>
+
+
+
+
+
+
+{% endblock %}
+

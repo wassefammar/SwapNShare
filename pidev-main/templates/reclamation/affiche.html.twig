@@ -1,0 +1,101 @@
+
+{% extends 'baseFrontOffice.html.twig'%}
+{% block body %}
+<h1 align="center">My Complaints </h1>
+<div class="details">
+    <div class="recentOrders">
+        <style> .table-rounded { border-collapse: separate; border-spacing: 0; border-radius: 20px; background-color: white;/* Ajustez la valeur pour obtenir le degré de rondeur souhaité */ overflow: hidden; /* Pour cacher les coins qui dépassent */ } 
+        .table-rounded th, 
+  .table-rounded td {
+    border: 1px solid #dddddd; /* Add borders for each cell */
+    padding: 5px; /* Reduce padding for cells */
+    font-size: 14px; /* Reduce font size */
+  }
+
+  td:hover {
+    background-color: transparent !important;
+    
+}
+
+.Treated {
+                color: green;
+            }
+ 
+            .pending {
+                color: blue; 
+            }
+
+            .rejected {
+                color: red;
+            }
+        .table-rounded th:hover, .table-rounded td:hover { border: 1px solid #dddddd; background-color:#3b5d50;/* Ajoutez des bordures pour chaque cellule */ padding: 8px; /* Ajoutez un remplissage pour les cellules */ } </style> <table class="table table-rounded"></table>
+    
+ <table align="center" border="1" class="table table-rounded table-hover" >
+    <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Phone Number</th>
+            <th>Email</th>
+            <th>Reason of Complaint</th>
+            <th>Description</th>
+            <th>Actions</th>
+            <th>Status</th>
+            <th>Urgency Level</th>
+            
+        </tr>
+    </thead>
+    <tbody>
+    {% for object in objects %}
+        <tr>
+            <td>{{ object.utilisateur.nom }}</td>
+            <td>{{ object.utilisateur.prenom}}</td>
+            <td>{{ object.utilisateur.Email }}</td>
+            <td>{{ object.utilisateur.telephone }}</td>
+            <td>{{ object.titreR }}</td>
+            <td>{{ object.descriptionR}}</td>
+            
+            
+           
+        
+           <td>
+            <div style="display: inline-block;">
+                  <a href="{{ path('edit', {'id': object.id}) }}"><i class="fa-regular fa-pen-to-square"></i></a>
+                  
+                </div>
+                <div style="display: inline-block;margin-left: 10px;">
+                  <form method="post" action="{{ path('delete', {'id': object.id}) }}" onsubmit="return confirm('Are you sure you want to delete this complaint ?');">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ object.id) }}">
+                    <a type="submit"  style="cursor: pointer;"><i class="fa-regular fa-circle-xmark" style="color: red;"></i></a>
+                </form>
+            </div>
+
+            </td>
+        </td>
+        <td class="{% if responseByComplaint[object.id] is defined %}{% if responseByComplaint[object.id] is not empty %}Treated{% else %}pending{% endif %}{% else %}pending{% endif %}">
+            <a href="{{ path('app_affiche_reponse',{'id': object.id}) }}" style="align-items: center;">{{ object.status }}</a>
+            {% if responseByComplaint[object.id] is defined %}
+            {% if responseByComplaint[object.id].getStatus == "Treated" %}
+                                    <p style="color: green;"> Treated</p>
+                                {% else %}
+                                    <p> Pending</p>
+                                {% endif %}
+                        
+                            {% endif %}
+    
+        </td> 
+        <td>{{ object.urgence}}</td>
+            
+       
+        </tr>
+    {% else %}
+        <tr>
+            <td>no records found</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+</div>
+{% endblock %}
+ 

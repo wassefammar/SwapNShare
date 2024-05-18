@@ -1,0 +1,99 @@
+{% extends "baseBackOffice.html.twig" %}
+{% block title %}Event{% endblock %}
+{% block body %}
+    <div class="cardBox">
+                <div class="card">
+                    <div>
+                        <div class="numbers">1,504</div>
+                        <div class="cardName">Visiteurs par jour</div>
+                    </div>
+
+                    <div class="iconBx">
+                        <ion-icon name="eye-outline"></ion-icon>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div>
+                        <div class="numbers">2</div>
+                        <div class="cardName">Events</div>
+                    </div>
+
+                    <div class="iconBx">
+                        <i class="fa-solid fa-boxes-stacked"></i>
+                    </div>
+                </div>
+
+                
+
+
+            </div>
+
+            <!-- ================ Order Details List ================= -->
+
+            <div class="details">
+                <div class="recentOrders" style="width: 100%;">
+                    <div class="cardHeader">
+                        <h2>Recent Orders</h2>
+                        <a href="{{ path('event_calendar', {'id': 1}) }}" class="btn">View All</a>
+                    </div>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>ID</td>
+                                <td>Image</td>
+                                <td>Product</td>
+                                <td>Auction Starting Time</td>
+                                <td>Auction Ending Time</td>
+                                <td>Status</td>
+                                <td>Option</td>
+                            </tr>
+                        </thead>
+
+                        
+                        <tbody>
+                        {% for evenement in evenements %}
+                            <tr>
+                                <td>{{ evenement.id }}</td>
+                                <td><img src="{{ asset('/uploads/produits/' ~ evenement.produit.photo) }}" alt="Image" width="100" height="100"></td>
+                                <td>{{ evenement.titreEvenement }}</td>
+                                <td>{{ evenement.dateDebut ? evenement.dateDebut|date('Y-m-d H:i:s') : '' }}</td>
+                                <td>{{ evenement.dateFin ? evenement.dateFin|date('Y-m-d H:i:s') : '' }}</td>
+                                
+
+                                <td>
+                                    <span class="badge rounded-pill" style="background-color:
+                                        {% if evenement.status|lower == 'Accepted' %}
+                                            #28a745
+                                        {% elseif evenement.status|lower == 'Waitlisted' %}
+                                            #ffc107
+                                        {% elseif evenement.status|lower == 'Declined' %}
+                                            #dc3545
+                                        {% else %}
+                                            #6c757d
+                                        {% endif %}
+                                        ">
+                                        {{ evenement.status }}
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <a href="{{ path('app_event_show', {'id': evenement.id}) }}" class="btn">Details</a>                               
+                                </td>
+                            </tr>
+
+                        {% else %}
+                            <tr>
+                                <td colspan="7">no records found</td>
+                            </tr>
+                        
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- ================= New Customers ================ -->
+                
+
+{% endblock %}

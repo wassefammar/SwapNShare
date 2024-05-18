@@ -1,0 +1,4 @@
+{% filter sort_by_urgency(priorityField) %}
+    {% set sortedData = data|sort(attribute(priorityField)) %}
+    {{- sortedData -}}
+{% endfilter %}

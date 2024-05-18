@@ -1,0 +1,189 @@
+{% extends "baseBackOffice.html.twig" %}
+{% block title %}Produits{% endblock %}
+{% block body %}
+<h1>PRODUCTS</h1>
+<div class="details" style="align: center;">
+                <div class="recentOrders">
+                    <div class="cardHeader">
+                        <h2>Product List</h2>
+                        
+                        
+                    </div>
+                      <div class="wrapper">
+						<button type="button" class="filter-button dropdown-toggle" data-bs-toggle="dropdown" style="height: 50px;" aria-expanded="false">
+							Filter by category
+						</button>
+					
+
+						<div class="dropdown-menu filter-dropdown">
+							<div class="filter-category">
+								<ul>
+								{% for category in categories %}
+								<li>
+									<a href="{{ path( 'app_admin_produits' , {valeur: category.id}) }}">{{category.nomCategorie}}</a>
+								</li>
+								{% endfor %}
+
+								</ul>
+							</div>
+						</div>
+
+                        <button type="button" class="filter-button dropdown-toggle" data-bs-toggle="dropdown" style="height: 50px;" aria-expanded="false">
+							Filter by Validation
+						</button>
+					
+
+						<div class="dropdown-menu filter-dropdown">
+							<div class="filter-category">
+								<ul>
+						
+								<li>
+									<a href="#">Valid</a>
+								</li>
+                                <li>
+									<a href="#">Non Valid</a>
+								</li>
+
+								</ul>
+							</div>
+						</div>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>Photo</td>
+                                <td>Title</td>
+                                <td>Category</td>
+                                <td>Barter</td>
+                                <td>Actions</td>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                        {% for pr in product %}
+                            <tr>
+                                
+                                 	<div class="d-flex">
+                                    <td>
+											<img src="{{ asset('uploads/produits/' ~ pr.photo) }}" alt="" class="rounded-image" >
+                                    </td>
+									</div> 
+                                
+                                <td>{{ pr.titreProduit }}</td>
+                                <td>{{ pr.categorie.nomCategorie }}</td>
+                                <td>{{ pr.utilisateur.nom ~ ' ' ~ pr.utilisateur.prenom }}</td>
+                                <td>
+                                    <a href="{{ path('details_admin', { id: pr.id }) }}"><i class="fa-regular fa-eye" ></i></a>
+                                    {# <a href="{{ path('app_admin_produits_delete', { id: pr.id }) }}"><i class="fa-regular fa-circle-xmark" style="color: red;"></i></a> #}
+                                <form method="post" action="{{ path( 'app_admin_produits_delete' , {id: pr.id}) }}" onclick="return confirm('Are you sure you want to delete this item?');">
+                                <input type="hidden" name="_token" value="{{ csrf_token('app_admin_produits_delete' ~ pr.id) }}"></input>
+                                <button><a type="submit" class="btn btn-danger" style="cursor: pointer;"><i class="fa-regular fa-circle-xmark" style="color: red;"></i></a></button>
+                                </form>
+                                </td>
+                                
+                            </tr>
+                        {% endfor %}
+                        
+                        </tbody>
+                    </table>
+
+                                           {{ knp_pagination_render(product) }}
+
+                </div>
+
+            </div>
+
+
+
+<style>
+.wrapper {
+  display: flex; /* Make the wrapper a flex container */
+  justify-content: space-between; /* Align items at opposite ends */
+}
+
+.add-button,
+.col-lg-3.col-md-4 {
+  /* Adjust styling for individual divs if needed */
+}
+
+.filter-button {
+  background-color: #3b5d50; /* Adjust background color */
+  color: white; /* Adjust text color */
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px; /* Adjust border radius */
+  cursor: pointer;
+  display: flex;
+  align-items: center; /* Align text and icon vertically */
+  transition: background-color 0.2s ease-in-out; /* Add a smooth hover effect */
+}
+
+.filter-button:hover {
+  background-color: #3b5d50;
+  color: white; /* Adjust hover background color */
+}
+
+
+.dropdown-menu {
+  background-color: white; /* Adjust background color */
+  border: 1px solid #ccc; /* Adjust border color */
+  border-radius: 5px; /* Adjust border radius */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+  padding: 10px;
+  min-width: 150px; /* Adjust minimum width */
+  position: absolute; /* Position relative to button (adjust if needed) */
+  z-index: 1; /* Ensure dropdown appears above other elements */
+  display: none; /* Initially hidden */
+}
+
+.dropdown-menu.show { /* Add class for open state */
+  display: block;
+}
+
+.filter-category {
+  padding: 5px 0; /* Add some padding for separation */
+  border-bottom: 1px solid #ddd; /* Add a subtle divider line */
+  margin-bottom: 5px; /* Add some bottom margin */
+}
+
+.filter-category h6 {
+  font-weight: bold;
+  margin-bottom: 5px; /* Adjust margin for spacing */
+}
+
+.filter-category ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.filter-category li {
+  padding: 5px 0; /* Adjust padding for spacing */
+}
+
+.filter-category li a {
+  text-decoration: none;
+  color: #333;
+  display: block; /* Make entire list item clickable */
+}
+
+.filter-category li a:hover {
+  background-color: #f1f1f1; /* Add hover background color */
+}
+
+</style>
+
+  <script>
+const dropdownButton = document.getElementById('buton');
+const dropdownMenu = document.querySelector('menu');
+
+dropdownButton.addEventListener('click', () => {
+  dropdownMenu.classList.toggle('show');
+});
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+
+
+{% endblock %}

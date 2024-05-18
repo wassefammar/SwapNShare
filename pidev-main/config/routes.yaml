@@ -1,0 +1,65 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+index:
+    path: /
+    controller: App\Controller\FrontOfficePagesController::index
+app_login:
+    path: /login
+    controller: App\Controller\UserController::login
+app_logout:
+    path: /logout
+    controller: App\Controller\UserController::logout
+app_user:
+    path: /user
+    controller: App\Controller\UserController::index
+app_userr:
+    path: /inscription
+    controller: App\Controller\UserController::register
+app_verify_code:
+    path: /verify_code
+    controller: App\Controller\UserController::verify_code
+app_delete:
+    path: /D/{id}
+    controller: App\Controller\UserController::deleteau
+app_edit:
+    path: /e/{id}
+    controller: App\Controller\UserController::editau
+app_profil:
+    path: /profile
+    controller: App\Controller\UserController::Profil
+verify_code:
+    path: /verify-code
+    controller: App\Controller\UserController::verificationCodeForm
+app_admin_home:
+    path: /admin/home
+    controller: App\Controller\AdminController::index
+app_admin_services:
+    path: /admin/services
+    controller: App\Controller\AdminController::services
+app_admin_categories:
+    path: /admin/categories
+    controller: App\Controller\AdminController::categories
+app_admin_produits:
+    path: /admin/produits
+    controller: App\Controller\AdminController::produits
+app_admin_reclamations:
+    path: /admin/reclamations
+    controller: App\Controller\AdminController::reclamations
+app_admin_messages:
+    path: /admin/messages
+    controller: App\Controller\AdminController::messages
+app_admin_commandes:
+    path: /admin/commandes
+    controller: App\Controller\AdminController::commandes
+app_admin_utilisateurs:
+    path: /admin/utilisateurs
+    controller: App\Controller\AdminController::utilisateurs
+app_addadmin:
+    path: /admin/addadmin
+    controller: App\Controller\AdminController::addadmin
+app_Forgot:
+    path: /Forgot
+    controller: App\Controller\UserController::Forgot
+
+

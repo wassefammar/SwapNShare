@@ -1,0 +1,136 @@
+{% extends "baseBackOffice.html.twig" %}
+
+{% block title %} Product Exchange List Index {% endblock %}
+{% block custom_css %}
+<style>
+    /* Container holding the filter elements */
+    .filter-container {
+        display: flex;
+        align-items: center;
+    }
+
+    /* Styling for the date input */
+    .date-input {
+        position: relative;
+    }
+
+    .date-input input[type="date"] {
+        padding: 12px 20px;
+        border: 2px solid #3b5d50; /* Dark green border */
+        border-radius: 10px;
+        font-size: 16px;
+        transition: border-color 0.3s ease;
+    }
+
+    /* Styling for the icon */
+    .date-input .icon {
+        position: absolute;
+        top: 50%;
+        right: 20px;
+        transform: translateY(-50%);
+        color: #3b5d50; /* Dark green color */
+        cursor: pointer;
+        transition: color 0.3s ease;
+    }
+
+    /* Hover effect for the icon */
+    .date-input .icon:hover {
+        color: #2a4339; /* Darker green on hover */
+    }
+
+    /* Styling for the filter button */
+    .filter-button {
+        padding: 15px 30px;
+        background-color: #3b5d50; /* Dark green background */
+        color: #fff; /* White text */
+        border: none;
+        border-radius: 30px; /* Rounded button */
+        font-size: 18px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        animation: pulse 1.5s infinite alternate; /* Pulse animation */
+    }
+
+    /* Hover effect for the filter button */
+    .filter-button:hover {
+        background-color: #2a4339; /* Darker green on hover */
+    }
+
+    /* Pulse animation */
+    @keyframes pulse {
+        0% {
+            transform: scale(1);
+        }
+        100% {
+            transform: scale(1.05); /* Slightly larger size */
+        }
+    }
+</style>
+{% endblock %}
+
+
+
+{% block body %}
+<br>
+<div class="details">
+    <div class="recentOrders">
+        <div class="cardHeader">
+            <div class="filter-container">
+                <label for="start_date">Start Date:</label>
+                <div class="date-input">
+                    <input type="date" id="start_date" name="start_date">
+                    <span class="icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </span>
+                </div>
+                <label for="end_date">End Date:</label>
+                <div class="date-input">
+                    <input type="date" id="end_date" name="end_date">
+                    <span class="icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </span>
+                </div>
+                <button type="button" id="filter-button" class="filter-button ">
+                    <a href="{{ path('app_exchange_produit_filter', {'id': 1})}}" > Filter </a>
+                </button>
+            </div>
+        </div>
+        <script>
+            // Your JavaScript code remains the same
+        </script>
+        <table id="echange_produit_table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Date Of Exchange</th>
+                    <th>Valid</th>
+                    <th>Actions</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for echange_produit in echange_produits %}
+                <tr>
+                    <td>{{ echange_produit.id }}</td>
+                    <td>{{ echange_produit.dateEchange ? echange_produit.dateEchange|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>{{ echange_produit.valide ? 'Yes' : 'No' }}</td>
+                    <td>
+                        <a href="{{ path('app_echange_produit_edit', {'id': echange_produit.id}) }}" class="status pending">edit</a>
+                    </td>
+                    <td>
+                        <form method="post" action="{{ path('app_echange_produit_delete', {'id': echange_produit.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ echange_produit.id) }}">
+                            <button class="status return">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="4">no records found</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

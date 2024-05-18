@@ -1,0 +1,11 @@
+{% extends "baseFrontOffice.html.twig" %}
+
+{% block title %} Service Exchange Edit {% endblock %}
+
+
+{% block body %}
+    <h1>Edit Service Exchange</h1>
+
+    {{ include('echange_service/_form.html.twig', {'button_label': 'Update'}) }}
+
+{% endblock %}

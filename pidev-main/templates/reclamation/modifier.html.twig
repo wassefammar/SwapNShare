@@ -1,0 +1,40 @@
+{% extends 'baseFrontOffice.html.twig'%}
+{% block body %}
+
+<div align="center">
+    <h2> Update Complaint</h2>
+    
+   {{form_start(form3A602, {'attr': {'novalidate': 'novalidate'}})}}
+ <table>
+   
+
+   
+
+    <tr>
+        <td>
+            {{ form_label(form3A602.titreR, 'Reason of Complaint')}}
+
+            {{ form_widget(form3A602.titreR) }}
+
+            {{ form_errors(form3A602.titreR) }}
+        </td>
+        <td>
+            {{ form_label(form3A602.descriptionR, 'Description')}}
+            
+            {{ form_widget(form3A602.descriptionR) }}
+            
+            {{ form_errors(form3A602.descriptionR) }}
+        </td>
+    </tr>
+   
+    {{ form_end(form3A602) }}
+
+</table>
+    
+
+    <a href="{{ path('show') }}">return to the list</a>
+
+    </div>
+
+    
+{% endblock %}

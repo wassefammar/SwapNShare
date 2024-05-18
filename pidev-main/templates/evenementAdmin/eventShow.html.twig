@@ -1,0 +1,72 @@
+{% extends "baseBackOffice.html.twig" %}
+{% block title %}Event{% endblock %}
+{% block body %}
+    
+            
+            <!-- ================ Order Details List ================= -->
+
+            <div class="details">
+    <div class="recentOrders">
+        <div class="cardHeader">
+            <h2>the Product</h2>
+            <a href="{{ path('app_event_edit', {'id': evenement.id}) }}" class="btn">Edit</a>
+            {{ include('evenementAdmin/eventDelete.html.twig') }}
+            <a href="{{ path('event_accept', {'id': evenement.id}) }}" class="btn">Accept</a>
+            <a href="{{ path('event_decline', {'id': evenement.id}) }}" class="btn">Decline</a>
+            <a href="{{ path('app_event_index', {'id': evenement.id}) }}" class="btn">Back</a>
+        </div>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>Id</th>
+                    <td>{{ evenement.id }}</td>
+                </tr>
+                <tr>
+                    <th>Title</th>
+                    <td>{{ evenement.titreEvenement }}</td>
+                </tr>
+                <tr>
+                    <th>Status</th>
+                    <td>{{ evenement.status }}</td>
+                </tr>
+                <tr>
+                    <th>Image</th>
+                    <td><img src="{{ asset('/uploads/produits/' ~ evenement.produit.photo) }}" alt="Image" class="img-fluid" width="300" height="300"></td>
+                </tr>
+                <tr>
+                    <th>Description</th>
+                    <td>{{ evenement.descriptionEvenement }}</td>
+                </tr>
+                <tr>
+                    <th>Starting Date</th>
+                    <td>{{ evenement.dateDebut ? evenement.dateDebut|date('Y-m-d H:i:s') : '' }}</td>
+                </tr>
+                <tr>
+                    <th>Ending Date</th>
+                    <td>{{ evenement.dateFin ? evenement.dateFin|date('Y-m-d H:i:s') : '' }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+            <!-- ================= New Customers ================ -->
+                <div class="recentCustomers">
+                    <div class="cardHeader">
+                        <h2>Participating Customers</h2>
+                    </div>
+
+                    <table>
+                        <tr>
+                            {#<td width="60px">
+                                <div class="imgBx"><img src="{{asset('backOffice/imgs/customer02.jpg')}}" alt=""></div>
+                            </td>
+                            <td>
+                                <h4>David <br> <span>Italy</span></h4>
+                            </td>#}
+                            <td>no Participent found</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+{% endblock %}

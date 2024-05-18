@@ -1,0 +1,149 @@
+{% extends "baseFrontOffice.html.twig" %}
+        {% block CSS %}
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+		<link href="{{asset('frontOffice/css/bootstrap.min.css')}}" rel="stylesheet">
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+		<link href="{{asset('frontOffice/css/tiny-slider.css')}}" rel="stylesheet">
+		<link href="{{asset('frontOffice/css/style.css')}}" rel="stylesheet">
+        <link href="{{asset('frontOffice/Show/css/main.css')}}" rel="stylesheet">
+        {% endblock %}
+{% block title %}Services{% endblock %}
+{% block subheader %}
+			<div class="hero">
+				<div class="container">
+					<div class="row justify-content-between">
+						<div class="col-lg-5">
+							<div class="intro-excerpt">
+								<h1>Services</h1>
+							</div>
+						</div>
+						<div class="col-lg-7">
+							
+						</div>
+					</div>
+				</div>
+			</div>
+{% endblock %}
+
+{% block body %}
+
+	<!--================Single Product Area =================-->
+	<div class="product_image_area">
+		<div class="container">
+			<div class="row s_product_inner">
+				<div class="col-lg-6">
+					<img class="img-fluid" src="{{ asset('uploads/services/' ~ service.photo) }}" alt="service's image">
+				</div>
+				<div class="col-lg-5 offset-lg-1">
+					<div class="s_product_text">
+						<h3>{{ service.titreService }}</h3>
+						<ul class="list">
+							<li><a class="active" href="#"><span>Category:</span> {{ service.categorie.nomCategorie }}</a></li>
+                            <li><a class="active" href="#" style="padding-right: 10px;"><span>Barter:</span> {{ service.utilisateur.nom ~ ' ' ~ service.utilisateur.prenom }}</a>  <a href="{{ path('abonner',{idSer: service.id, id:service.utilisateur.id }) }}"><i class="fa-regular fa-bell"></i></a></li>
+                            <li><a class="active" href="#"><span>Phone:</span> {{ service.utilisateur.telephone }}</a></li>
+                            <li><span> Description : </span></li>
+						</ul>
+                       
+						<p>{{ service.descriptionService }}</p>
+						<div class="card_area d-flex align-items-center">
+
+							{% if app.user %}
+								{% if service.utilisateur.id == app.user.getId() %}
+									<a class="icon_btn" href="{{ path('modifier_service', { id: service.id }) }}"><i class="fa-regular fa-pen-to-square"></i></a>
+									<a class="icon_btn" href="{{ path('supprimer_service', { id: service.id }) }}"><i class="fa-solid fa-trash"></i></a>
+								{% else %}
+                                <a class="primary-btn" href="{{ path('app_echange_service_new' , { id: service.id }) }}"><i class="fa-solid fa-right-left" style="padding-right: 10px;"> </i> Exchange</a>
+                            	{% endif %}
+							{% else %}
+								<a class="primary-btn" href="{{ path('app_login') }}"><i class="fa-solid fa-right-left" style="padding-right: 10px;"> </i> Login to exchange</a>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--================End Single Product Area =================-->
+
+	<!--================Product Description Area =================-->
+	<section class="product_description_area">
+		<div class="container">
+			<div class="tab-content" id="myTabContent">
+				<div class="tab-pane fade show active" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="comment_list">
+							{% if pagination|length >0 %}
+							{% for commentaire in pagination %}
+								<div class="review_item">
+								<div class="wrapper">
+									<div class="media">
+										<div class="d-flex">
+											{# <img src="{{ asset(app.session.get('image')) }}" alt="" class="rounded-image"> #}
+										</div>
+										<div class="media-body">
+										   <h4>{{ commentaire.utilisateur.nom ~ ' ' ~ commentaire.utilisateur.prenom ~ ' '}}  </h4>
+										   
+
+											<div class="button-container">
+												
+												{% if commentaire.utilisateur.id == app.user.getId() %}
+													<a class="icon_btn" href="{{ path('modifier_commentaire', { idSer: service.id, idCom: commentaire.id }) }}"><i class="fa-regular fa-pen-to-square"></i></a>
+													<a class="icon_btn" href="{{ path('supprimer_commentaire', { idSer: service.id, idCom: commentaire.id  }) }}"><i class="fa-solid fa-trash red-icon"></i></a>
+
+												{% endif %}
+
+											</div>
+										</div>
+									</div>
+								</div>
+									<p>{{ commentaire.description }}</p>
+								</div>
+							{% endfor %}
+								<div class="navigation">
+									{{ knp_pagination_render(pagination) }}
+								</div>
+							{% else %}
+							  <h2>No comments for the moment</h2>
+							{% endif %}
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="review_box">
+								<h4>Post a comment</h4>
+								{{ form_start(formCommentaire,{'attr': {'novalidate': 'novalidate'}}) }}
+									{{ form_row(formCommentaire.description, {'attr': {'rows': 5, 'cols': 10}})  }}
+									{# Affichage des erreurs #}
+									<div style="color: red;">
+										{{ form_errors(formCommentaire) }}
+									</div>
+								{{ form_end(formCommentaire) }}
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</section>
+	<!--================End Product Description Area =================-->
+<style>
+.wrapper {
+  display: flex; /* Make the wrapper a flex container */
+  justify-content: space-between; /* Align items at opposite ends */
+}
+
+.add-button,
+.col-lg-3.col-md-4 {
+  /* Adjust styling for individual divs if needed */
+}
+
+</style>
+{% endblock %}
+
+        {% block JS%}
+		<script src="{{asset('frontOffice/js/bootstrap.bundle.min.js')}}"></script>
+		<script src="{{asset('frontOffice/js/tiny-slider.js')}}"></script>
+		<script src="{{asset('frontOffice/js/custom.js')}}"></script>
+        <script src="{{asset('frontOffice/Show/js/main.js')}}"></script>
+		{% endblock %}

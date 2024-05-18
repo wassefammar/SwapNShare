@@ -1,0 +1,100 @@
+{% extends 'authentification.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+
+{% block body %}
+
+
+<div class="card border-success mb-3" style="width: 600px;   height: 450px;   margin-top: 20px; margin-left: 400px;" >
+  <div class="card-body ">
+
+
+
+      <form action="{{ path('app_login') }}" method="post">
+
+    
+        <div class="row ">
+          <h1>Please sign in</h1>
+
+             <div class="row" style=" margin-left: 30px;">
+                 <label for="inputEmail">Email</label>
+             </div>
+          
+            <div class="row" style=" margin-left: 30px;">
+               <div class="col-sm-10">
+
+                   <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus >
+
+                </div>
+            </div>
+
+            <div class="row" style=" margin-left: 30px;">
+                <label for="inputPassword">Password</label>
+            </div>
+
+            <div class="row" style=" margin-left: 30px;">
+               <div class="col-sm-10">
+                  <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" >
+
+                {% if error %}
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
+                <div class="row mt-4"style="margin-left: 80px;" >
+                    <div class="col-sm-5" >
+                        <button class="btn btn-lg btn-primary" type="submit">
+                            Sign in
+                        </button>
+                        </div>
+                    <div class="col-sm-6" >
+                        <a class="btn btn-lg btn-primary" href="{{path('app_userr')}}">
+                            Sign Up
+                        </a>
+                    </div>
+                </div>
+            </div>
+             
+
+       
+       </form>
+
+    </div>
+
+   
+          <br>
+
+
+ </div>
+
+    <div>
+        
+
+        <a  href="{{path('app_Forgot')}}"  style="color: green;  margin-left: 200px;"   >
+            Forgot Password ?
+        </a>
+
+     </div>
+   <style>  
+ 
+ .card {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2), 5px 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+
+
+
+
+</style>
+
+
+
+
+
+
+
+{% endblock %}

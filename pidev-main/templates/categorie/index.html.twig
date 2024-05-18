@@ -1,0 +1,79 @@
+{# templates/categorie/index.html.twig #}
+
+{% extends 'baseBackOffice.html.twig' %}
+{% block title %}Categories Index{% endblock %}
+{% block body %}
+    <br>
+    <div class="details">
+        <div class="recentOrders">
+            <div class="cardHeader">
+                <h2>All Categories</h2>
+                <a href="{{ path('app_categorie_new') }}" class="btn">Create new</a>
+            </div>
+            <br><br>
+            <table id="categories-table">
+                <thead>
+                    <tr>
+                        <th><button onclick="sortTable(0)" class="status inProgress">Sort</button> by Name Category </th>
+                        <th><button onclick="sortTable(1)" class="status inProgress">Sort</button> by Type</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for categorie in categories %}
+                    <tr>
+                        <td>{{ categorie.nomCategorie }}</td>
+                        <td>{{ categorie.type|upper }}</td>
+                        <td><a href="{{ path('app_categorie_edit', {'id': categorie.id}) }}" class="status pending">Edit</a></td>
+                        <td>
+                            <form method="post" action="{{ path('app_categorie_delete', {'id': categorie.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ categorie.id) }}">
+                                <button class="status return" >Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="4">no records found</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.querySelectorAll("#categories-table th button").forEach(button => {
+                button.addEventListener("click", function() {
+                    var columnIndex = Array.from(this.parentNode.parentNode.children).indexOf(this.parentNode);
+                    sortTable(columnIndex);
+                });
+            });
+        });
+
+        function sortTable(columnIndex) {
+            var table, rows, switching, i, x, y, shouldSwitch;
+            table = document.getElementById("categories-table");
+            switching = true;
+            while (switching) {
+                switching = false;
+                rows = table.rows;
+                for (i = 1; i < (rows.length - 1); i++) {
+                    shouldSwitch = false;
+                    x = rows[i].getElementsByTagName("td")[columnIndex];
+                    y = rows[i + 1].getElementsByTagName("td")[columnIndex];
+                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+                if (shouldSwitch) {
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                    switching = true;
+                }
+            }
+        }
+    </script>
+{% endblock %}

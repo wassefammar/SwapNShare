@@ -1,0 +1,55 @@
+{% extends "baseFrontOffice.html.twig" %}
+
+
+
+
+{% block body %}
+<div class="untree_co-section before-footer-section">
+  <div class="container">
+    <div class="row mb-5">
+      <form class="col-md-12" method="post">
+        <div class="site-blocks-table">
+          <table class="table">
+            <thead>
+              <tr>
+                <th class="product-thumbnail">Image</th>
+                <th class="product-name">Product</th>
+                <th class="product-price">Auction Starting Time</th>
+                <th class="product-quantity">Auction Ending Time</th>
+              </tr>
+            </thead>
+            {% for evenement in evenements %}
+            <tbody>             
+              <tr class="clickable-row" data-href="{{ path('app_evenement_show', {'id': evenement.id}) }}">
+                <td class="product-thumbnail">
+                  <img src="{{ asset('/uploads/produits/' ~ evenement.produit.photo) }}" alt="Image" class="img-fluid">
+                </td>
+                <td class="product-name">
+                  <h2 class="h5 text-black">{{ evenement.titreEvenement }}</h2>
+                </td>
+                <td>{{ evenement.dateDebut ? evenement.dateDebut|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ evenement.dateFin ? evenement.dateFin|date('Y-m-d H:i:s') : '' }}</td>
+              </tr>
+              {% else %}
+                <tr>
+                    <td colspan="7">no records found</td>
+                </tr>
+            </tbody>
+            {% endfor %}
+          </table>
+        </div>
+      </form>
+    </div>
+
+    <div class="mb-5 text-center"><a href="{{ path('app_evenement_new') }}" class="btn btn-primary">Add an Event</a></div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $(".clickable-row").click(function() {
+            window.location = $(this).data("href");
+        });
+    });
+</script>
+
+{% endblock %}

@@ -1,0 +1,248 @@
+{% extends "baseFrontOffice.html.twig" %}
+        {% block CSS %}
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+		<link href="{{asset('frontOffice/css/bootstrap.min.css')}}" rel="stylesheet">
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+		<link href="{{asset('frontOffice/css/tiny-slider.css')}}" rel="stylesheet">
+		<link href="{{asset('frontOffice/css/style.css')}}" rel="stylesheet">
+        <link href="{{asset('ProductDetails/css/style.css')}}" rel="stylesheet">
+		<link href="{{asset('ProductDetails/lib/animate/animate.min.css')}}" rel="stylesheet">
+		<link href="{{asset('ProductDetails/lib/owlcarousel/assets/owl.carousel.min.css')}}" rel="stylesheet">
+
+		<!-- Customized Bootstrap Stylesheet -->
+		<link href="{{asset('ProductDetails/css/style.css')}}" rel="stylesheet">
+
+        {% endblock %}
+
+{% block title %}Add Product{% endblock %}
+{% block subheader %}
+			<div class="hero">
+				<div class="container">
+					<div class="row justify-content-between">
+						<div class="col-lg-5">
+							<div class="intro-excerpt">
+								<h1>Products</h1>
+							</div>
+						</div>
+						<div class="col-lg-7">
+							
+						</div>
+					</div>
+				</div>
+			</div>
+{% endblock %}
+{% block body %}
+
+
+    <!-- Shop Detail Start -->
+    <div class="container-fluid" style="margin-top: 20px; margin-bottom: 20px;">
+        <div class="row px-xl-5">
+            <div class="col-lg-5 mb-30">
+                <div id="product-carousel" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner bg-light">
+                        <div class="carousel-item active">
+                            <img class="w-100 h-100" src="{{asset('uploads/produits/' ~ oneproduct.photo)}}" alt="Image">
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div  id="product-details" class="col-lg-7 h-auto mb-30">
+                <div class="h-100 bg-light p-30" >
+                    <h3>{{ oneproduct.titreProduit }}</h3>
+                    <div class="d-flex mb-3">
+                        <div class="text-primary mr-2">
+                              {% for i in 1..5 %}
+                                    {% if averageReview >= i %}
+                                    <small class="fas fa-star"></small>
+                                    {% elseif averageReview > (i - 0.5) %}
+                                    <small class="fas fa-star-half-alt"></small>
+                                    {% else %}
+                                    <small class="far fa-star"></small>
+                                    {% endif %}
+                            {% endfor %}
+                        </div>
+                        <small class="pt-1">( {{reviewCount ~ ' '}} Reviews)</small>
+                    </div>
+                    <h3 class="font-weight-bold mb-4">{{oneproduct.prix ~' DT' }}</h3>
+					<h5 class="font-weight-bold mb-4"><i class="fa-solid fa-layer-group"></i> {{' ' ~ oneproduct.categorie.nomCategorie }}</h5>
+					<h5 class="font-weight-bold mb-4"><i class="fa-solid fa-user"></i>{{' ' ~ oneproduct.utilisateur.nom ~ ' ' ~ oneproduct.utilisateur.prenom}}</h5>
+					<h5 class="font-weight-bold mb-4"><i class="fa-solid fa-phone"></i>{{' ' ~ oneproduct.utilisateur.telephone }}</h5>
+                    <h5 class="font-weight-bold mb-4"><i class="fa-solid fa-ethereum"></i>{{ ' ' ~ oneproduct.etat }}</h5>
+
+
+                    <div class="d-flex align-items-center mb-4 pt-2">
+					{% if  oneproduct.utilisateur.id != app.user.getId() %}
+					    <a href="{{ path('app_echange_produit_new', { id: oneproduct.id }) }}">
+						    <button class="btn btn-primary px-3" style="margin-right: 10px;"><i class="fa fa-sync-alt"></i> Exchange</button>
+                        </a>
+					    <a href="{{ path('add_lc',{id : oneproduct.id}) }}">
+                            <button class="btn btn-primary px-3"><i class="fa-solid fa-cart-plus"></i> Add To Cart</button>
+					    </a>
+					{% else %}
+					 <a href="{{ path('editProduit',{id : oneproduct.id}) }}">
+						<button class="btn btn-primary px-3" style="margin-right: 10px;"><i class="fa-solid fa-pen-to-square"></i>Edit</button>
+                     </a>
+					 <a href="{{ path('deleteProduit',{id : oneproduct.id}) }}">
+                        <button class="btn btn-primary px-3"><i class="fa-solid fa-trash"></i> Delete </button>
+					</a>
+					{% endif %}
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+        <div class="row px-xl-5">
+            <div class="col">
+                <div class="bg-light p-30">
+                    <div class="nav nav-tabs mb-4">
+                        <a class="nav-item nav-link text-dark active" data-toggle="tab" href="#tab-pane-1">Description</a>
+                        <a class="nav-item nav-link text-dark" data-toggle="tab" href="#tab-pane-3">Reviews ({{ reviewCount }})</a>
+                    </div>
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="tab-pane-1">
+                            <h4 class="mb-3">Product Description</h4>
+							<p> {{oneproduct.descriptionProduit}} </p>
+                        </div>
+
+                        <div class="tab-pane fade" id="tab-pane-3">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h4 class="mb-4">1 review for "Product Name"</h4>
+                                    <div class="media mb-4">
+                                        <img src="{{asset('ProductDetails/img/user.jpg')}}" alt="rounded-image" class="img-fluid mr-3 mt-1" style="width: 45px;">
+                                        <div class="media-body">
+                                            <h6>John Doe<small> - <i>01 Jan 2045</i></small></h6>
+                                            <div class="text-primary mb-2">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star-half-alt"></i>
+                                                <i class="far fa-star"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <h4 class="mb-4">Leave a review</h4>
+                                    <div class="d-flex my-3">
+                                        <p class="mb-0 mr-2">Your Rating * :</p>
+                                        <div class="text-primary" >
+                                           <a href="{{ path('review',{idP: oneproduct.id, note: 1}) }}" style="color: #FFD333"><i class="far fa-star"></i></a>
+
+                                           <a href="{{ path('review',{idP: oneproduct.id, note: 2}) }}"><i class="far fa-star"style="color: #FFD333"></i></a>
+
+                                           <a href="{{ path('review',{idP: oneproduct.id, note: 3}) }}"><i class="far fa-star"style="color: #FFD333"></i></a>
+
+                                           <a href="{{ path('review',{idP: oneproduct.id, note: 4}) }}"><i class="far fa-star"style="color: #FFD333"></i></a>
+
+                                           <a href="{{ path('review',{idP: oneproduct.id, note: 5}) }}"><i class="far fa-star"style="color: #FFD333"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Shop Detail End -->
+
+{% endblock %}
+{% block JS %}
+	<script src="{{asset('frontOffice/js/bootstrap.bundle.min.js')}}"></script>
+	<script src="{{asset('frontOffice/js/tiny-slider.js')}}"></script>
+	<script src="{{asset('frontOffice/js/custom.js')}}"></script>
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('lib/easing/easing.min.js') }}"></script>
+    <script src="{{ asset('lib/owlcarousel/owl.carousel.min.js') }}"></script>
+    <script src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v14.0"></script>
+   
+
+
+    <!-- Template Javascript -->
+    <script src="{{ asset('js/main.js') }}"></script>
+
+
+
+
+ <script>
+        async function getProductDetails(productId) {
+            const response = await fetch(`/api/products/${productId}`);
+            const productDetails = await response.json();
+            
+            // Update product details displayed in the UI
+            document.getElementById('product-details').innerHTML = `
+                <h1><span class="math-inline">\{productDetails\.title\}</h1\>
+<p\></span>{productDetails.description}</p>
+                <img src="<span class="math-inline">\{productDetails\.image\}" alt\="</span>{productDetails.title}">
+            `;
+        }
+
+        function shareOnSocialMedia(platform, productId) {
+            console.log(`Clicked on ${platform} icon`);
+
+            getProductDetails(productId)
+                .then(productDetails => {
+                    const currentUrl = window.location.href;
+                    let shareUrl;
+
+                    switch (platform) {
+                        case 'facebook':
+                            // Ensure Facebook SDK is loaded (check for recent version)
+                            if (typeof FB !== 'undefined') {
+                                FB.ui({
+                                    method: 'share',
+                                    href: currentUrl,
+                                    title: productDetails.title,
+                                });
+                            } else {
+                                console.warn('Facebook sharing requires the Facebook SDK');
+                            }
+                            break;
+                        case 'twitter':
+                            // Implement Twitter's Intent API
+                            shareUrl = `https://twitter.com/intent/tweet?url=<span class="math-inline">\{encodeURIComponent\(currentUrl\)\}&text\=</span>{encodeURIComponent(productDetails.title)}`;
+                            break;
+                        case 'pinterest':
+                            // Use Pinterest's Pin It button
+                            shareUrl = `https://www.pinterest.com/pin/create/button/?url=<span class="math-inline">\{encodeURIComponent\(currentUrl\)\}&description\=</span>{encodeURIComponent(productDetails.title)}`;
+                            break;
+                        default:
+                            console.warn(`Sharing to ${platform} not yet implemented`);
+                            return; // Handle unsupported platforms gracefully
+                    }
+
+                    if (shareUrl) {
+                        window.open(shareUrl, '_blank');
+                    }
+                })
+                .catch(error => console.error('Error fetching product details:', error));
+        }
+
+        // Attach click event listener to social media icons
+        const socialMediaIcons = document.getElementById('social-media-icons');
+        socialMediaIcons.addEventListener('click', function (event) {
+            const targetId = event.target.id;
+
+            if (targetId === 'facebook-icon') {
+                shareOnSocialMedia('facebook', document.getElementById('product-details').dataset.productId);
+            } else if (targetId === 'twitter-icon') {
+                shareOnSocialMedia('twitter', document.getElementById('product-details').dataset.productId); // Implement Twitter sharing logic
+            } else if (targetId === 'pinterest-icon') {
+                } else if (targetId === 'pinterest-icon') {
+                shareOnSocialMedia('pinterest', document.getElementById('product-details').dataset.productId); // Pinterest sharing logic
+            } else {
+                console.warn('Clicked on an unrecognized social media icon');
+            }
+        });
+    </script>
+
+
+
+
+{% endblock %}

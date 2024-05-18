@@ -1,0 +1,62 @@
+{% extends "baseBackOffice.html.twig" %}
+{% block title %}Event{% endblock %}
+{% block body %}
+            
+            <!-- ================ Order Details List ================= -->
+
+
+{#<div class="details">
+    <div class="recentOrders">
+        <div class="cardHeader">
+            <h2>the Product</h2>
+            <a href="{{ path('app_event_show', {'id': evenement.id}) }}" class="btn">Cancel</a>
+        </div>
+
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8 col-lg-8 pb-4">
+                    <div class="card">
+                        <div class="card-body">
+
+                            <!-- Custom input -->
+                            <div class="d-flex justify-content-between align-items-center">
+
+                                <!-- Styled button for update -->
+                                {{ include('evenement/_form.html.twig', {'button_label': 'Update Customer Info'}) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>#}
+
+<div class="details modern">
+  <div class="recentOrders">
+    <div class="cardHeader">
+      <h2 class="text-white">The Product</h2>
+      <a href="{{ path('app_event_show', {'id': evenement.id}) }}" class="btn btn-primary">Cancel</a>
+    </div>
+
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-8 pb-4">
+          <div class="card bg-white border-primary">
+            <div class="card-body">
+
+              <div class="d-flex justify-content-between align-items-center">
+
+                {{ include('evenement/_form.html.twig', {'button_label': 'Update Customer Info', 'button_class': 'btn'}) }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+{% endblock %}

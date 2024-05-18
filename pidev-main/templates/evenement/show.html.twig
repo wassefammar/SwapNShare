@@ -1,0 +1,42 @@
+{% extends "baseFrontOffice.html.twig" %}
+
+{% block body %}
+
+    <div class="untree_co-section before-footer-section">
+  <div class="container">
+    <div class="row">
+    <table class="table">
+        <tbody>
+            <tr>
+                <th><h1>{{ evenement.titreEvenement }}</h1></th>
+            </tr>
+            <tr>
+                <th><img src="{{ asset('/uploads/produits/' ~ evenement.produit.photo) }}" alt="Image" class="img-fluid" width="200" height="300"></th>
+                <td>{{ evenement.descriptionEvenement }}</td>
+            </tr>
+            <tr>
+                <th>DateDebut</th>
+                <td>{{ evenement.dateDebut ? evenement.dateDebut|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>DateFin</th>
+                <td>{{ evenement.dateFin ? evenement.dateFin|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+    </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col text-end">
+            <a class="btn" href="{{ path('app_evenement_edit', {'id': evenement.id}) }}">edit</a>
+        </div>
+        <div class="col text-left">
+            {{ include('evenement/_delete_form.html.twig') }}
+        </div>
+    </div>
+
+
+    <div class="text-center"><a class="btn btn-secondary mt-2" href="{{ path('app_evenement_index') }}">back to list</a></div>
+{% endblock %}

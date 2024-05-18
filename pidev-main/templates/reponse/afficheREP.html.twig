@@ -1,0 +1,81 @@
+
+{% extends 'baseFrontOffice.html.twig'%}
+{% block body %}
+
+<div id="complaints-container" class="details">
+
+{% if reponse is not null %}
+<h1 align="center" id="complaints-title">My Complaints </h1>
+
+<div class="recentOrders">
+    <style>
+    .table-rounded { border-collapse: separate; 
+    border-spacing: 0; 
+    border-radius: 20px; 
+    background-color: white;
+    overflow: hidden; 
+     } 
+    .table-rounded th, 
+    .table-rounded td {
+border: 1px solid #dddddd; /* Add borders for each cell */
+padding: 5px; /* Reduce padding for cells */
+font-size: 14px; /* Reduce font size */
+}
+
+    .table-container {
+    margin-left: 50px; /* Adjust the margin as needed */
+}
+
+    #complaints-container {
+    margin-top: 40px; /* Adjust the margin-top as needed */
+    
+}
+
+    #complaints-title {
+    margin-bottom: 20px; /* Adjust margin-bottom as needed */
+    
+}
+
+    td:hover {
+    background-color: transparent !important;
+    
+}
+
+    td {
+    width: 20%; /* Adjust the width as needed */
+}
+
+    .table {
+    width: 60%; /* Adjust the width as needed */
+}
+    .table-rounded th:hover, .table-rounded td:hover { border: 1px solid #dddddd;
+     background-color:#3b5d50;/* Ajoutez des bordures pour chaque cellule */ 
+     padding: 8px; /* Ajoutez un remplissage pour les cellules */ }
+      </style> 
+<table align="center" border="1" class="table table-rounded table-hover">
+    <thead>
+        <tr>
+            <td>Reason of Complaint</td>
+            <td>Description</td>
+        </tr>
+    </thead>
+
+    <tbody>
+    
+        <tr>
+            <td>{{ reponse.titreR }}</td>
+            <td>{{ reponse.descriptionR }}</td>
+        </tr>
+    </tbody>
+</table>
+
+{% else %}
+
+<h2 align="center" color="red">No reponse for this complaint</h2>
+
+{% endif %}
+
+</div>
+
+{% endblock %}
+ 

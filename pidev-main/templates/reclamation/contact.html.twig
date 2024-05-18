@@ -1,0 +1,72 @@
+{% extends 'baseFrontOffice.html.twig'%}
+{% block body %}
+<div align="center">
+    <div class="row">
+        {{form_start(form3A60, {'attr': {'novalidate': 'novalidate'}})}}
+ <table>
+    <tr>
+        <td>
+            {{ form_label(form3A60.prenom, 'First Name')}}
+            
+            {{ form_widget(form3A60.prenom) }}
+            
+            {{ form_errors(form3A60.prenom)}}
+           
+        </td>
+        <td>
+            {{ form_label(form3A60.nom, 'Last Name') }}
+            {{ form_widget(form3A60.nom) }}
+            {{ form_errors(form3A60.nom) }}
+            
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            {{ form_label(form3A60.Email, 'Email') }}
+
+            {{ form_widget(form3A60.Email)}}
+
+            {{ form_errors(form3A60.Email)}}
+        </td>
+        <td>
+            {{ form_label(form3A60.telephone, 'Phone Number')}}
+
+            {{ form_widget(form3A60.telephone)}}
+
+            {{ form_errors(form3A60.telephone)}}
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            {{ form_label(form3A60.titreR, 'Reason of Complaint')}}
+
+            {{ form_widget(form3A60.titreR)}}
+
+            {{ form_errors(form3A60.titreR)}}
+        </td>
+        <td>
+            {{ form_label(form3A60.descriptionR, 'Description')}}
+            
+            {{ form_widget(form3A60.descriptionR)}}
+            
+            {{ form_errors(form3A60.descriptionR)}}
+        </td>
+
+        <td>
+            {{ form_label(form3A60.utilisateur_id, 'utilisateur_id')}}
+            
+            {{ form_widget(form3A60.utilisateur_id)}}
+            
+            {{ form_errors(form3A60.utilisateur_id)}}
+        </td>
+    </tr>
+   
+    {{ form_end(form3A60) }}
+
+</table>
+    </div>
+</div>
+
+{% endblock %}

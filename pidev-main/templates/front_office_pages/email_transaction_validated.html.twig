@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction Validated</title>
+    <style>
+        /* Add your custom CSS styles here */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333333;
+        }
+        p {
+            color: #666666;
+            line-height: 1.6;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Transaction Validated</h1>
+        <p>Hello , My Name is {{ utilisateur.nom }} {{ utilisateur.prenom }}</p>
+        <p>Your transaction has been successfully validated. Here are the details:</p>
+        <p><strong>Transaction ID:</strong> {{ echangeService.id }}</p>
+        <p><strong>Date:</strong> {{ echangeService.getDateEchange() | date('Y-m-d H:i:s') }}</p>
+        <p><strong>Product Details:</strong> </p>
+        <ul>
+            <li><strong>Name:</strong> {{ echangeService.ServiceOut.titreService }}</li>
+            <li><strong>Description:</strong> {{ echangeService.ServiceOut.descriptionService }}</li>
+        </ul>
+        <p>Thank you for the exchange !</p>
+        <a href="{{ path('app_echange_produit_transactions') }}" class="button">View Transaction</a>
+    </div>
+</body>
+</html>

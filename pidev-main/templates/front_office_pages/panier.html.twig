@@ -1,0 +1,245 @@
+{% extends "baseFrontOffice.html.twig" %}
+{% block title %}Panier{% endblock %}
+
+{% block navbar %}
+
+		<!-- Start Header/Navigation -->
+		<nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
+
+			<div class="container">
+				<a class="navbar-brand" href="{{path('index')}}">SwapNshare<span>.</span></a>
+
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni" aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+
+				<div class="collapse navbar-collapse" id="navbarsFurni">
+					<ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+						<li>
+							<a class="nav-link" href="{{path('index')}}">Home</a>
+						</li>
+						<li >
+							<a class="nav-link" href="{{path('produits')}}">Produits</a>
+						</li>
+						<li >
+							<a class="nav-link" href="{{path('services')}}">Services</a>
+						</li>
+						<li>
+							<a class="nav-link" href="{{path('contact')}}">Contact Us</a>
+						</li>
+					</ul>
+
+					<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
+						<li>
+                <a class="nav-link" href="#"><img src="{{asset('frontOffice/images/user.svg')}}"></a>
+            </li>
+						<li class="nav-item active">
+                <a class="nav-link" href="{{path('panier')}}"><img src="{{asset('frontOffice/images/cart.svg')}}"></a>
+            </li>
+					</ul>
+				</div>
+			</div>
+				
+		</nav>
+{% endblock %}
+
+
+{% block subheader %}
+			<div class="hero">
+				<div class="container">
+					<div class="row justify-content-between">
+						<div class="col-lg-5">
+							<div class="intro-excerpt">
+								<h1>Cart</h1>
+							</div>
+						</div>
+						<div class="col-lg-7">
+							
+						</div>
+					</div>
+				</div>
+			</div>
+{% endblock %}
+{% block body %}
+
+{% if flashMessage is defined  %}
+        <script>
+            window.onload = function() {
+                alert({{ flashMessage }});
+            };
+        </script>
+{% endif %}
+{# 		<div class="untree_co-section before-footer-section">
+            <div class="container">
+              <div class="row mb-5">
+                <form class="col-md-12" method="post">
+                  <div class="site-blocks-table">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th class="product-thumbnail">Photo</th>
+                          <th class="product-name">Product</th>
+                          <th class="product-price">Price</th>
+                          <th class="product-remove">Remove</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for lc1 in lc %}
+                          <tr>
+                            <td class="product-thumbnail">
+                            <img src="{{asset('uploads/produits/' ~ lc1.Produit.photo )}}" alt="Image" class="img-fluid">
+                            </td>
+                            <td class="product-name">
+                            <h2 class="h5 text-black"> {{lc1.Produit.titreProduit}}</h2>
+                            </td>
+                            <td>{{lc1.Produit.prix}} Dt</td>
+
+                            <td><a href="{{path('delete_lc',{id : lc1.id}) }}" class="btn btn-black btn-sm">X</a></td>
+                          </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </form>
+              </div>
+        
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="row mb-5">
+                    <div class="col-md-6 mb-3 mb-md-0">
+                      <button class="btn btn-black btn-sm btn-block">Update Cart</button>
+                    </div>
+                    <div class="col-md-6">
+                      <button class="btn btn-outline-black btn-sm btn-block">Continue Shopping</button>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <label class="text-black h4" for="coupon">Coupon</label>
+                      <p>Enter your coupon code if you have one.</p>
+                    </div>
+                    <div class="col-md-8 mb-3 mb-md-0">
+                      <input type="text" class="form-control py-3" id="coupon" placeholder="Coupon Code">
+                    </div>
+                    <div class="col-md-4">
+                      <button class="btn btn-black">Apply Coupon</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 pl-5">
+                  <div class="row justify-content-end">
+                    <div class="col-md-7">
+                      <div class="row">
+                        <div class="col-md-12 text-right border-bottom mb-5">
+                          <h3 class="text-black h4 text-uppercase">Cart Totals</h3>
+                        </div>
+                      </div>
+                      <div class="row mb-3">
+                        <div class="col-md-6">
+                          <span class="text-black">Subtotal</span>
+                        </div>
+                        <div class="col-md-6 text-right">
+                          <strong class="text-black">$230.00</strong>
+                        </div>
+                      </div>
+                      <div class="row mb-5">
+                        <div class="col-md-6">
+                          <span class="text-black">Total</span>
+                        </div>
+                        <div class="col-md-6 text-right">
+                          <strong class="text-black">$230.00</strong>
+                        </div>
+                      </div>
+        
+                      <div class="row">
+                        <div class="col-md-12">
+                          <button class="btn btn-black btn-lg py-3 btn-block" onclick="window.location='checkout.html'">Proceed To Checkout</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+  </div> #}
+
+
+
+    <!-- Cart Start -->
+    <div class="container-fluid" style="margin-top: 20px; margin-bottom: 20px;">
+        <div class="row px-xl-5">
+            <div class="col-lg-8 table-responsive mb-5">
+            {% if message is defined %}
+            <h2>{{ message }}</h2>
+            {% endif %}
+            {% set total = 0 %}
+
+            {% if lc|length >0 %}
+            {% set total = total + 10 %}
+                <table class="table table-light table-borderless table-hover text-center mb-0">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Image</th>
+                            <th>Product</th>
+                            <th>Price</th>
+                            <th>Remove</th>
+                        </tr>
+                    </thead>
+                    <tbody class="align-middle">
+                    
+                    {% for lc1 in lc %}
+                        <tr>
+                            <td class="align-middle img-fluid" ><img src="{{asset('uploads/produits/' ~ lc1.Produit.photo )}}" alt="" style="width: 100px; height:100px;"> </td>
+                            <td class="align-middle"> {{ lc1.Produit.titreProduit}}</td>
+                            <td class="align-middle">{{ lc1.Produit.prix ~ ' DT'}}</td>
+                            <td class="align-middle">
+                                <a href="{{path('delete_lc',{id: lc1.id})}}">
+                                <button class="btn btn-sm btn-danger" style="color: #fff; background-color: #dc3545; border-color: #dc3545;"><i class="fa fa-times"></i></button>
+                                </a>
+                            </td>
+                            
+                        </tr>
+                        {% set total = total + lc1.Produit.prix %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                <h3>No products in your cart</h3>
+                {% endif %}
+            </div>
+            <div class="col-lg-4">
+                <form class="mb-30" action="" style="margin-bottom: 20px;">
+                    <div class="input-group">
+                        <input type="text" class="form-control border-0 p-4" placeholder="Coupon Code" style="border-radius: 10px;">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" style="margin-left: 10px;">Apply Coupon</button>
+                        </div>
+                    </div>
+                </form>
+                <h5 class="section-title position-relative text-uppercase mb-3">Cart Summary</h5>
+                <div class="bg-light p-30 mb-5" style="padding: 10px 10px 10px 10px;">
+                    <div class="border-bottom pb-2">
+                        <div class="d-flex justify-content-between mb-3">
+                            <h6>Subtotal</h6>
+                            <h6>{{ total ~ ' DT' }}</h6>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <h6 class="font-weight-medium">Shipping</h6>
+                            <h6 class="font-weight-medium">10 DT</h6>
+                        </div>
+                    </div>
+                    <div class="pt-2">
+                        <div class="d-flex justify-content-between mt-2">
+                            <h5>Total</h5>
+                            
+                            <h5>{{total ~' DT'}} </h5>
+                        </div>
+                       <a href="{{ path('app_paiement', {amount: total}) }}" target="_blank"><button class="btn btn-block btn-primary font-weight-bold my-3 py-3">Proceed To Checkout</button></a> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Cart End -->
+
+{% endblock %}

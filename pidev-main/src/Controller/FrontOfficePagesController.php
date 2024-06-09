@@ -222,7 +222,7 @@ class FrontOfficePagesController extends AbstractController
         $cssContent = '.container {margin-top: 20px;}.card-header {padding: 10px;}.card-body { padding: 20px;}.card-footer { padding: 10px;}.card-footer .row { margin-top: 10px;}.list-unstyled {list-style: none;padding: 0;}.list-unstyled li {margin-bottom: 10px;}.font-weight-bold{font-weight: bold;}'; // Add your CSS content here
         $client = new Client();
         $res = $client->request('POST', 'https://hcti.io/v1/image', [
-            'auth' => ['cae56d5f-d7d7-4b1e-a556-394503edc813', '51fd2853-6278-49d3-9588-e5cc35f199fb'],
+            'auth' => "",
             'form_params' => ['html' => $htmlContent, 'css' => $cssContent]
         ]);
         $responseBody = json_decode($res->getBody(), true);
@@ -249,7 +249,7 @@ class FrontOfficePagesController extends AbstractController
         $cssContent = '.container {margin-top: 20px;}.card-header {padding: 10px;}.card-body { padding: 20px;}.card-footer { padding: 10px;}.card-footer .row { margin-top: 10px;}.list-unstyled {list-style: none;padding: 0;}.list-unstyled li {margin-bottom: 10px;}.font-weight-bold{font-weight: bold;}'; // Add your CSS content here
         $client = new Client();
         $res = $client->request('POST', 'https://hcti.io/v1/image', [
-            'auth' => ['cae56d5f-d7d7-4b1e-a556-394503edc813', '51fd2853-6278-49d3-9588-e5cc35f199fb'],
+            'auth' => "",
             'form_params' => ['html' => $htmlContent, 'css' => $cssContent]
         ]);
         $responseBody = json_decode($res->getBody(), true);
@@ -269,7 +269,7 @@ class FrontOfficePagesController extends AbstractController
     {
         dump($request->getContent());
         $inputText = json_decode($request->getContent(), true)['description'] ?? '';
-        $openai = new OpenAi('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');
+        $openai = "";
         try {
             $response = $openai->completion([
                 'model' => 'text-davinci-003',
